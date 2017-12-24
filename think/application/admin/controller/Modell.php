@@ -99,7 +99,7 @@ class Modell extends Base
             //找到对应的数据表添加
             if ($rs) {
                 $table = config('database.prefix') . 'article_' . $model->name;
-                $sql = "alter table {$table} add {$name} {$type} {$isNull}";
+                $sql = "alter table {$table} add {$name} {$type} {$isNull};";
                 Db::execute($sql);
                 $this->success('添加模型字段成功', url('fields', ['id' => $mid]));
             } else {
@@ -138,13 +138,67 @@ class Modell extends Base
         }
     }
 
-    public function delfie($name, $id)
+    public function delfie($name, $field, $id)
     {
+
         $filed = Db::name('models')->field('field')->where('id', $id)->select();
-        dump(unserialize($filed[0]['field']));
+        $cc = unserialize($filed[0]['field']);
+        unset($cc[$field]);
+        $vv = serialize($cc);
+        Db::name('models')->where('id', $id)->setField('field', $vv);
 
-//        $cc="alter table cd_models drop {$name}";
+        $re = "alter table cd_article_{$name} drop {$field}";
+        $rs = Db::name($name)->query($re);
+        if ($rs) {
+            $this->success('删除成功');
+        } else {
+            $this->error('失败');
+        }
+    }
 
+    public function modfie($name, $field, $id)
+    {
+        $model = \app\admin\model\Models::get($id);
+        $ac = $name;
+        $cc = $model['field'][$field]['name'];
+
+        if ($this->request->isPost()) {
+            $name = input('post.name');//字段名
+            $comment = input('post.detail');//提示文字
+            $type = input('post.type') != 'text' ? input('post.type') . '(' . input('post.length') . ')' : input('post.type');
+            $isNull = input('post.isnull');
+            //添加module中fields字段
+            //$fields=$model->fields;
+            if ($model->field == '') {
+                $model->field = [];
+            }
+            $data = [
+                'field' => array_merge($model->field, [$name => input('post.')])
+            ];
+
+            $rs = $model->save($data);
+            //delete field
+            $filed = Db::name('models')->field('field')->where('id', $id)->select();
+            $cc = unserialize($filed[0]['field']);
+            unset($cc[$field]);
+            $vv = serialize($cc);
+            Db::name('models')->where('id', $id)->setField('field', $vv);
+            $re = "alter table cd_article_{$ac} drop {$field}";
+            Db::name($name)->query($re);
+            //找到对应的数据表添加
+            if ($rs) {
+                $table = config('database.prefix') . 'article_' . $model->name;
+                $sql = "alter table {$table} add {$name} {$type} {$isNull};";
+                Db::execute($sql);
+                $this->success('修改模型字段成功', url('fields', ['id' => 4]));
+            } else {
+                $this->error('修改模型字段失败');
+            }
+        } else {
+            $this->assign('info', $model['field'][$field]);
+
+            return $this->fetch();
+        }
     }
 
 }

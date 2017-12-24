@@ -28,8 +28,8 @@
                 <td>{$v.length}</td>
                 <td>{$v.isnull}</td>
                 <td>
-                    <a href="{:url('delfie',['name'=>$v['name'],'id'=>$info.id])}">删除</a>
-                    <a href="{:url('modfie',['name'=>$v['name']])}">修改</a>
+                    <a href="{:url('delfie',['name'=>$info['name'],'field'=>$v['name'],'id'=>$info.id])}">删除</a>
+                    <a href="{:url('modfie',['name'=>$info['name'],'field'=>$v['name'],'id'=>$info.id])}">修改</a>
                 </td>
             </tr>
             {/volist}

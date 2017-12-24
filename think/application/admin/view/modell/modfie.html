@@ -1,0 +1,88 @@
+<style type="text/css">
+    #J_imageView .item {
+        float: left;
+        width: 100px;
+        margin: 10px;
+        position: relative
+    }
+
+    #J_imageView .item:first-child {
+        margin-left: 0;
+    }
+
+    #J_imageView .item .fa {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        background: rgba(0, 0, 0, 0.7);
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        cursor: pointer;
+    }
+</style>
+<div class="col-xs-12">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        <!-- #section:elements.form -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">字段名：</label>
+            <div class="col-sm-9">
+                <input type="text" placeholder="输入字段名" class="col-xs-9 col-sm-5" name="name" value="{$info['name']}">
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">字段说明：</label>
+            <div class="col-sm-9">
+                <input type="text" placeholder="输入字段说明" class="col-xs-10 col-sm-5" name="detail"
+                       value="{$info['detail']}">
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">数据类型：</label>
+            <div class="col-sm-9">
+                <select class="col-xs-10 col-sm-5" name="type">
+                    <option value="varchar">字符串类型(varchar)</option>
+                    <option value="int">整型(int)</option>
+                    <option value="float">浮点型(float)</option>
+                    <option value="text">文本类型(text)</option>
+                </select>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">字段长度：</label>
+            <div class="col-sm-9">
+                <input type="text" placeholder="输入字段长度" class="col-xs-10 col-sm-5" name="length" value="{$info.length}">
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">是否为空：</label>
+            <div class="col-sm-9">
+                <select class="col-xs-10 col-sm-5" name="isnull">
+                    <option value="null">为空</option>
+                    <option value="not null">不为空</option>
+                </select>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    立即提交
+                </button>
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn" type="reset">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    </table>
