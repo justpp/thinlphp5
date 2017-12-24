@@ -1,0 +1,113 @@
+{include file='public/header'}
+<div class="banner">
+    <img src="__STATIC__/img/project_banner.jpg"/>
+</div>
+<div class="product" style="background: #fff;">
+    <div class="title">
+        <p class="p1">C</p>
+        <div class="p2">
+            <p class="pp1">案例</p>
+            <p class="pp2">ASE</p>
+        </div>
+    </div>
+    <div class="project_box">
+        <ul>
+            <li>
+                <img src="__STATIC__/img/project_pic1.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+            <li class="active">
+                <img src="__STATIC__/img/project_pic2.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+            <li>
+                <img src="__STATIC__/img/project_pic3.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+            <li>
+                <img src="__STATIC__/img/project_pic4.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+            <li>
+                <img src="__STATIC__/img/project_pic5.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+            <li>
+                <img src="__STATIC__/img/project_pic6.jpg"/>
+                <p class="p1">乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p2">乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建乐天圣苑项目-华西集团十二分公司承建</p>
+                <p class="p3">
+                    <span class="span1">+</span>
+                    <span class="span2">了解更多</span>
+                </p>
+            </li>
+        </ul>
+        <div class="paging">
+            <p><img src="__STATIC__/img/arrow2_left.png"/></p>
+            <a>1</a>
+            <a class="active">2</a>
+            <a>3</a>
+            <a>4</a>
+            <a>5</a>
+            <a>6</a>
+            <p style="margin-left: 35px;"><img src="__STATIC__/img/arrow2_right.png"/></p>
+        </div>
+    </div>
+</div>
+{include file='public/footer'}
+</body>
+<script>
+    $(function () {
+        $(".project_box ul li").hover(function () {
+            $(this).addClass("active");
+        }, function () {
+            $(this).removeClass("active");
+        });
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({width: "100%"});
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({width: "0"});
+        });
+        $(".paging a").hover(function () {
+            $(this).addClass("active");
+        }, function () {
+            $(this).removeClass("active");
+        });
+    });
+</script>
+</html>

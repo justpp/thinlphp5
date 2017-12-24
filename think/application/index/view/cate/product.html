@@ -1,0 +1,80 @@
+{include file='public/header'}
+
+<div class="banner">
+    <img src="__STATIC__/img/product_banner.jpg"/>
+</div>
+<div class="product">
+    <div class="title">
+        <p class="p1">P</p>
+        <div class="p2">
+            <p class="pp1">产品</p>
+            <p class="pp2">RODUCT</p>
+        </div>
+    </div>
+    <div class="product_box">
+        <ul>
+            {volist name="arclist" id="v"}
+            <!--<a href="{:url('article/index?cid='.$v['cid'],['id'=>$v['id']])}"><li>-->
+            <!--<img src="{$v.thumb|thumb=###,224,224}"/>-->
+            <!--<div class="new_p">-->
+            <!--<p class="p1">{$v.addtime|date='d',###}<span>/{$v.addtime|date='m',###}</span></p>-->
+            <!--<p class="p2">{$v.title}</p>-->
+            <!--<p class="p3">{$v.description}</p>-->
+            <!--</div>-->
+            <!--</li></a>-->
+
+            <a href="{:url('article/index?cid='.$v['cid'],['id'=>$v['id']])}">
+                <li>
+                    <div class="pb_box">
+                        <p class="p_img"><img src="{$v.thumb|thumb=###,224,224}"/></p>
+                        <div class="p_info">
+                            <p class="p1">{$v.title}</p>
+                            <p class="p2">{$v.description}<img src="__STATIC__/img/product_addIcon.png"/></p>
+                        </div>
+                    </div>
+
+                </li>
+            </a>
+            {/volist}
+
+        </ul>
+
+    </div>
+
+    {$pages}
+</div>
+{include file='public/footer'}
+</body>
+<script>
+    $(function () {
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({width: "100%"});
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({width: "0"});
+        });
+        $(".product_box ul li").find(".pb_box").hover(function () {
+            $(this).stop().animate({width: '300px', height: '500px'});
+            $(this).addClass("active");
+        }, function () {
+            $(this).stop().animate({width: '270px', height: '450px'});
+            $(this).removeClass("active");
+        });
+        $(".paging a").hover(function () {
+            $(this).addClass("active");
+        }, function () {
+            $(this).removeClass("active");
+        });
+
+    });
+</script>
+</html>

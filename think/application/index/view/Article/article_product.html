@@ -1,0 +1,91 @@
+{include file='public/header'}
+<div class="banner">
+    <img src="__STATIC__/img/product_banner.jpg"/>
+</div>
+<div class="product">
+    <div class="title">
+        <p class="p1">J</p>
+        <div class="p2">
+            <p class="pp1">{$arcinfo['title']}</p>
+            <p class="pp2">ligoudaner</p>
+        </div>
+    </div>
+    <div class="productInfo">
+        <div class="pc-slide prI_left">
+            <div class="big_img">
+                <img src="{$arcinfo.thumb|thumb=###,150,150}"/>
+            </div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {volist name="arcinfo.imgs|unserialize=###" id="v"}
+                    <div class="swiper-slide">
+                        <img src="{$v|thumb=###,100,100}"/>
+                    </div>
+                    {/volist}
+                </div>
+
+            </div>
+            <div class="swiper-button-prev"><img src="__STATIC__/img/arrow3_left.png"/></div>
+            <div class="swiper-button-next"><img src="__STATIC__/img/arrow3_right.png"/></div>
+        </div>
+        <div class="prI_right">
+            <p class="p1">型号规格 : {$arcinfo['attr']}</p>
+            <p class="p1">适用: </p>
+            <p class="p2">{$arcinfo['usein']}</p>
+            <p class="p1">优点 : </p>
+            <p class="p2">
+                {$arcinfo['bestin']}
+            </p>
+            <p class="p1">其它 :</p>
+            <p class="p2">
+                {$arcinfo['content']}
+            </p>
+        </div>
+    </div>
+</div>
+{include file='public/footer'}
+</body>
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        slidesPerView: 4,
+        simulateTouch: false,
+        loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        initialSlide: 2,
+    });
+    $(".swiper-button-prev").click(function () {
+        var img_src = $(".swiper-wrapper").find(".swiper-slide").eq(mySwiper.activeIndex).find("img").attr("src");
+        $(".big_img").find("img").attr("src", img_src);
+    });
+    $(".swiper-button-next").click(function () {
+        var img_src = $(".swiper-wrapper").find(".swiper-slide").eq(mySwiper.activeIndex).find("img").attr("src");
+        $(".big_img").find("img").attr("src", img_src);
+    });
+    var c_src = $(".swiper-wrapper").find(".swiper-slide").eq(2).find("img").attr("src");
+    $(".big_img").find("img").attr("src", c_src);
+    $(function () {
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({
+                width: "100%"
+            });
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({
+                width: "0"
+            });
+        });
+    });
+</script>
+
+</html>

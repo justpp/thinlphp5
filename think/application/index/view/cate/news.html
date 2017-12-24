@@ -1,0 +1,65 @@
+{include file='public/header'}
+<div class="banner">
+    <img src="__STATIC__/img/new_banner.jpg"/>
+</div>
+<div class="cont1">
+    <div class="title">
+        <p class="p1">N</p>
+        <div class="p2">
+            <p class="pp1">新闻</p>
+            <p class="pp2">EWS</p>
+        </div>
+    </div>
+    <div class="new_box">
+        <ul>
+            {volist name="arclist" id="v"}
+            <a href="{:url('article/index?cid='.$v['cid'],['id'=>$v['id']])}">
+                <li>
+                    <img src="{$v.thumb|thumb=###,224,224}"/>
+                    <div class="new_p">
+                        <p class="p1">{$v.addtime|date='d',###}<span>/{$v.addtime|date='m',###}</span></p>
+                        <p class="p2">{$v.title}</p>
+                        <p class="p3">{$v.description}</p>
+                    </div>
+                </li>
+            </a>
+            {/volist}
+        </ul>
+    </div>
+    {$pages}
+</div>
+{include file='public/footer'}
+</body>
+<script>
+    $(function () {
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({width: "100%"});
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({width: "0"});
+        });
+
+        $(".new_box ul li:odd").find("img").css("float", "right");
+        $(".new_box ul li").hover(function () {
+            $(this).addClass("active");
+        }, function () {
+            $(this).removeClass("active");
+        });
+        $(".paging a").hover(function () {
+            $(this).addClass("active");
+        }, function () {
+            $(this).removeClass("active");
+        });
+
+    });
+</script>
+</html>

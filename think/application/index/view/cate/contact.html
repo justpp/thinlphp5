@@ -1,0 +1,125 @@
+{include file='public/header'}
+<div class="banner">
+    <img src="__STATIC__/img/contact_banner.jpg"/>
+</div>
+<div class="cont1">
+    <div class="title">
+        <p class="p1">C</p>
+        <div class="p2">
+            <p class="pp1">联系</p>
+            <p class="pp2">ONCTACT</p>
+        </div>
+    </div>
+    <ul class="contact_box1">
+        <li>
+            <img src="__STATIC__/img/contact_icon1.png"/>
+            <p class="p1">公司地址</p>
+            <p class="p2">成都市武侯区<br/>邮编 : 12344</p>
+        </li>
+        <li>
+            <img src="__STATIC__/img/contact_icon2.png"/>
+            <p class="p1">联系方式</p>
+            <p class="p2">联系电话 : 34124s<br/>传真 : 32534534</p>
+        </li>
+        <li>
+            <img src="__STATIC__/img/contact_icon3.png"/>
+            <p class="p1">公司邮箱</p>
+            <p class="p2">aaaaa@126.com</p>
+        </li>
+        <li>
+            <img src="__STATIC__/img/contact_icon4.png"/>
+            <p class="p1">联系QQ</p>
+            <p class="p2">客服土豆 : 23412383<br/>客服地瓜 : 45343433</p>
+        </li>
+    </ul>
+    <div class="title">
+        <p class="p1">M</p>
+        <div class="p2">
+            <p class="pp1">留言</p>
+            <p class="pp2">ESSAGE</p>
+        </div>
+    </div>
+    <div class="contact_box2">
+        <div class="cb2_left">
+            <form action="" method="post">
+                <p class="list">
+                    <span>姓名</span>
+                    <input type="text" name="" id="" value="" placeholder="(请输入您的姓名,此为必填项)"/>
+                </p>
+                <p class="list">
+                    <span>电话</span>
+                    <input type="tel" name="" id="" value="" placeholder="(请输入您的电话,此为必填项)"/>
+                </p>
+                <p class="list">
+                    <span>邮箱</span>
+                    <input type="email" name="" id="" value=""/>
+                </p>
+                <div class="list2">
+                    <span class="span1">邮箱</span>
+                    <textarea name="" rows="" cols=""></textarea>
+                    <span class="span2">*最多输入200字</span>
+                </div>
+                <p class="btn">发送</p>
+            </form>
+        </div>
+        <div class="cb2_right">
+            <div style="width: 100%;height: 279px;" id="dituContent"></div>
+        </div>
+    </div>
+</div>
+{include file='public/footer'}
+</body>
+<script type="text/javascript">
+    function initMap() {
+        createMap();
+        setMapEvent();
+        addMapControl();
+    }
+
+    function createMap() {
+        var map = new BMap.Map("dituContent");
+        var point = new BMap.Point(104.043877, 30.630995);
+        map.centerAndZoom(point, 25);
+        window.map = map;
+        var marker = new BMap.Marker(new BMap.Point(104.043877, 30.630995));
+        map.addOverlay(marker);
+    }
+
+    function setMapEvent() {
+        map.enableDragging();
+        map.enableScrollWheelZoom();
+        map.enableDoubleClickZoom();
+        map.enableKeyboard();
+    }
+
+    function addMapControl() {
+        var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(ctrl_nav);
+        var ctrl_ove = new BMap.OverviewMapControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: 1});
+        map.addControl(ctrl_ove);
+        var ctrl_sca = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
+        map.addControl(ctrl_sca);
+    }
+
+    initMap();
+</script>
+<script>
+    $(function () {
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({width: "100%"});
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({width: "0"});
+        });
+    });
+</script>
+</html>

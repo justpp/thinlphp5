@@ -1,0 +1,51 @@
+{include file='public/header'}
+<div class="banner">
+    <img src="__STATIC__/img/new_banner.jpg"/>
+</div>
+<div class="new_info">
+    <div class="new_info_box">
+        <p class="ni_title">
+            <span class="span1">{$arcinfo.addtime|date='d',###}/</span>
+            <span class="span2">{$arcinfo.addtime|date='m',###}</span>
+            {$arcinfo.title}
+        </p>
+        <div class="content">
+            {$arcinfo.content}
+        </div>
+        <p class="other">
+            {if condition="$prev"}
+            <a href="{:url('article/index',['id'=>$prev['id'],'cid'=>$prev['cid']])}"
+               class="active">上一篇：{$prev.title}</a>
+            {else/}
+            <a href="javascript:;">上一篇：没有了</a>
+            {/if}
+            {if condition="$next"}
+            <a href='{:url("article/index?cid=$next[cid]",["id"=>$next["id"]])}' class="active">下一篇：{$next.title}</a>
+            {else/}
+            <a href="javascript:;">下一篇：没有了</a>
+            {/if}
+        </p>
+    </div>
+</div>
+{include file='public/footer'}
+</body>
+<script>
+    $(function () {
+        $(".header ul li").find(".span2").hide();
+        $(".header ul li.active").find(".span1").hide();
+        $(".header ul li.active").find(".span2").show();
+        $(".header ul li.active").find(".underLine").css("width", "100%");
+        $(".header ul li").hover(function () {
+            $(this).addClass("active");
+            $(this).find(".span1").hide();
+            $(this).find(".span2").show();
+            $(this).find(".underLine").stop().animate({width: "100%"});
+        }, function () {
+            $(this).removeClass("active");
+            $(this).find(".span1").show();
+            $(this).find(".span2").hide();
+            $(this).find(".underLine").stop().animate({width: "0"});
+        });
+    });
+</script>
+</html>

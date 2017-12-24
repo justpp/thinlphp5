@@ -1,0 +1,177 @@
+<style type="text/css">
+    #J_imageView .item {
+        float: left;
+        width: 100px;
+        margin: 10px;
+        position: relative
+    }
+
+    #J_imageView .item:first-child {
+        margin-left: 0;
+    }
+
+    #J_imageView .item .fa {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        background: rgba(0, 0, 0, 0.7);
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        cursor: pointer;
+    }
+</style>
+<div class="col-xs-12">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        <!-- #section:elements.form -->
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">分类名称：</label>
+            <div class="col-sm-8">
+                <input type="text" placeholder="输入名称" class="col-sm-9 col-sm-5" name="cname">
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">英文名称：</label>
+            <div class="col-sm-9">
+                <input type="text" placeholder="输入英文名称" class="col-xs-10 col-sm-5" name="enname">
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">上级分类：</label>
+            <div class="col-sm-9">
+                <select name="pid" class="col-xs-10 col-sm-5">
+                    <option value="0">顶级分类</option>
+                    {$cateOpt}
+                </select>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">所属频道：</label>
+            <div class="col-sm-9">
+                <select name="mid" class="col-xs-10 col-sm-5">
+                    <option value="">请选择</option>
+                    {volist name="mlist" id="m"}
+                    <option value="{$m.id}" data-name="{$m.name}">{$m.detail}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">前台模板：</label>
+            <div class="col-sm-9">
+                <select name="tpl" class="col-xs-10 col-sm-5">
+                    <option value="">请选择</option>
+                    {volist name="files" id="f"}
+                    <option value="{$f}">{$f}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">页面类型：</label>
+            <div class="col-sm-9">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="type" value="1" checked class="ace">
+                        <span class="lbl">列表</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="2" class="ace">
+                        <span class="lbl">单页</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">缩略图：</label>
+            <div class="col-sm-9">
+                <div class="thumb" style="width:160px;margin-bottom:10px;background:#f1f1f1">
+                    <img src="" width="160" onerror="this.src='__STATIC__/images/101.jpg'">
+                </div>
+                <input type="hidden" placeholder="上传图片" class="col-xs-10 col-sm-5" name="thumb">
+                <button class="btn btn-info btn-sm" id="btn-thumb">上传图片</button>
+                <button class="btn btn-sm" id="btn-delthumb">删除图片</button>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">分类描述 ：</label>
+            <div class="col-sm-9">
+                <div class="pos-rel">
+                    <textarea class="form-control" name="description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">分类内容 ：</label>
+            <div class="col-sm-9">
+                <div class="pos-rel">
+                    <textarea class="form-control" style="height:300px" name="content" id="editor"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    立即提交
+                </button>
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn" type="reset">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    重置
+                </button>
+            </div>
+        </div>
+    </form>
+    <script src="__STATIC__/assets/kindeditor/kindeditor-all.js"></script>
+    <script src="__STATIC__/assets/kindeditor/lang/zh-CN.js"></script>
+    <script>
+        //产品介绍
+        KindEditor.ready(function (K) {
+            window.editor = K.create('#editor', {
+                uploadJson: '{:url("common/upload")}',//自定义上传路径
+                allowFileManager: true,
+                fileManagerJson: '{:url("common/filemanager")}'//自定义文件管理程序路径
+            });
+        });
+        //单图片上传
+        KindEditor.ready(function (K) {
+            var editor = K.editor({
+                uploadJson: '{:url("common/upload")}',//自定义处理上传程序路径
+                allowFileManager: true,
+                fileManagerJson: '{:url("common/filemanager")}'//自定义文件管理程序路径
+            });
+            K('#btn-thumb').click(function (e) {
+                e.preventDefault();
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('input[name=thumb]').val(),
+                        //上传成功回调函数
+                        clickFn: function (url, title, width, height, border, align) {
+                            K('input[name=thumb]').val(url);
+                            K('.thumb img').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
+        //删除上传图片
+        $('#btn-delthumb').click(function (e) {
+            e.preventDefault();
+            $('input[name=thumb]').val('');
+            $('.thumb img').attr('src', '');
+        });
+    </script>

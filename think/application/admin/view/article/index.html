@@ -1,0 +1,85 @@
+<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+    <thead>
+    <button class="btn">
+        <a href="{:url('add')}"><i class=" fa fa-pencil align-top bigger-125"></i>
+            添加记录</a>
+    </button>
+    <form action="{:url('del')}" method="post">
+        <tr>
+            <th class="center">
+                <label class="position-relative">
+                    <input type="checkbox" class="checkAll ">
+                    <span class="lbl"></span>
+                </label>
+            </th>
+            <th>分类名称</th>
+            <th>英文名称</th>
+            <th>排序</th>
+            <th>
+
+                状态
+            </th>
+
+            <th class="hidden-480">操作</th>
+        </tr>
+    </thead>
+    {$cateTr}
+</table>
+<script src="__STATIC__/js/jquery-2.2.0.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+    $('.dels').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        layer.confirm('您确定删除？', {
+            btn: ['是', '否'] //按钮
+        }, function () {
+            window.location = url;
+        })
+    });
+    $('.checkAll').click(function () {
+        var isCheck = $(this).prop('checked');
+        $('input[type=checkbox]').prop('checked', isCheck);
+    });
+    $('input[name=sort]').change(function () {
+
+        var $sort = $(this).val();
+
+        var $id = $(this).attr('data-id');
+
+        if (!/^\d+$/.test($sort)) {
+            layer.msg('排序必须是数字');
+            return;
+        }
+        $.getJSON('{:url("sort")}', {id: $id, sort: $sort, rand: Math.random()}, function (rs) {
+            layer.msg(rs.msg);
+        });
+    });
+    $('.c2').click(function () {
+        $id = $(this).attr('data-id');
+        $cid = $(this).attr('data-c') == 1 ? 0 : 1;
+        $ok = $(this);
+        $.getJSON('{:url("status")}', {id: $id, status: $cid, rand: Math.random()}, function (re) {
+
+            layer.msg(re.msg);
+        });
+    });
+    $('.btn-show').click(function () {
+        var status = $(this).attr('data-status');
+        var id = $(this).attr('data-id');
+        var obj = $(this);
+        $.getJSON('{:url("status")}', {id: id, status: status, rand: Math.random()}, function (rs) {
+            if (rs.state) {
+                //更改前端样式
+                if (status == 1) {
+                    obj.attr('data-status', 0).removeClass('btn-success').addClass('btn-default').html('<i class="fa fa-eye-slash"></i> 隐藏');
+                } else {
+                    obj.attr('data-status', 1).removeClass('btn-default').addClass('btn-success').html('<i class="fa fa-eye"></i> 显示');
+                }
+            } else {
+                layer.msg(rs.msg);
+            }
+        });
+
+    });
+</script>
